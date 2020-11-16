@@ -1,0 +1,6 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    constant_identifier_names: false
+    directives_ordering: false
