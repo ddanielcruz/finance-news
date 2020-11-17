@@ -45,6 +45,15 @@ abstract class Theme {
           fontFamily: 'Poppins',
         ),
       ),
+      buttonTheme: const ButtonThemeData(
+        height: 56,
+        buttonColor: Colors.amber,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(4),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -37,16 +37,22 @@ abstract class _NewsStore with Store {
   }
 
   Future fetch(Category category) async {
+    final key = category.name;
+
     if (!articles.containsKey(category.name)) {
       try {
-        loadings[category.name] = true;
+        loadings[key] = true;
+        if (errors.containsKey(key)) {
+          errors.remove(key);
+        }
+
         final result = await _getArticles(category.url);
         result.fold(
-          (failure) => errors[category.name] = _failureToMessage(failure),
-          (articles) => this.articles[category.name] = articles,
+          (failure) => errors[key] = _failureToMessage(failure),
+          (articles) => this.articles[key] = articles,
         );
       } finally {
-        loadings[category.name] = false;
+        loadings[key] = false;
       }
     }
   }
