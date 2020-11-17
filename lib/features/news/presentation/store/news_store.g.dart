@@ -24,6 +24,36 @@ mixin _$NewsStore on _NewsStore, Store {
     });
   }
 
+  final _$articlesAtom = Atom(name: '_NewsStore.articles');
+
+  @override
+  ObservableMap<String, List<Article>> get articles {
+    _$articlesAtom.reportRead();
+    return super.articles;
+  }
+
+  @override
+  set articles(ObservableMap<String, List<Article>> value) {
+    _$articlesAtom.reportWrite(value, super.articles, () {
+      super.articles = value;
+    });
+  }
+
+  final _$errorsAtom = Atom(name: '_NewsStore.errors');
+
+  @override
+  ObservableMap<String, String> get errors {
+    _$errorsAtom.reportRead();
+    return super.errors;
+  }
+
+  @override
+  set errors(ObservableMap<String, String> value) {
+    _$errorsAtom.reportWrite(value, super.errors, () {
+      super.errors = value;
+    });
+  }
+
   final _$initializeAsyncAction = AsyncAction('_NewsStore.initialize');
 
   @override
@@ -34,7 +64,9 @@ mixin _$NewsStore on _NewsStore, Store {
   @override
   String toString() {
     return '''
-categories: ${categories}
+categories: ${categories},
+articles: ${articles},
+errors: ${errors}
     ''';
   }
 }
