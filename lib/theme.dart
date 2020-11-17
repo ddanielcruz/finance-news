@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' hide Theme;
 
 abstract class ThemeColors {
   static const primary = Color(0xFF232323);
-  static const scaffoldBackground = Color(0xFFF7F7F7);
+  static const scaffoldBackground = Color(0xFFF2F2F2);
 }
 
 abstract class Theme {

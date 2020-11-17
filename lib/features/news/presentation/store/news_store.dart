@@ -39,7 +39,6 @@ abstract class _NewsStore with Store {
       (failure) => errors[category.name] = _failureToMessage(failure),
       (articles) => this.articles[category.name] = articles,
     );
-    print(result);
   }
 
   String _failureToMessage(Failure failure) {

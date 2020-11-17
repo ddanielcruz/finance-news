@@ -1,4 +1,5 @@
 import 'package:finance_news/features/news/presentation/store/news_store.dart';
+import 'package:finance_news/features/news/presentation/widgets/articles_section.dart';
 import 'package:finance_news/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -33,7 +34,12 @@ class _NewsPageState extends State<NewsPage> {
             ),
           ),
           body: TabBarView(
-            children: store.categories.map((category) => Container()).toList(),
+            children: store.categories
+                .map((category) => ArticlesSection(
+                      key: Key(category.name),
+                      category: category,
+                    ))
+                .toList(),
           ),
         ),
       ),
