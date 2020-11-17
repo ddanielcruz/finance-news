@@ -25,6 +25,9 @@ abstract class _NewsStore with Store {
   @observable
   ObservableMap<String, String> errors = ObservableMap();
 
+  @observable
+  ObservableMap<String, bool> loadings = ObservableMap();
+
   _NewsStore(this._getCategories, this._getArticles);
 
   @action
@@ -35,11 +38,16 @@ abstract class _NewsStore with Store {
 
   Future fetch(Category category) async {
     if (!articles.containsKey(category.name)) {
-      final result = await _getArticles(category.url);
-      result.fold(
-        (failure) => errors[category.name] = _failureToMessage(failure),
-        (articles) => this.articles[category.name] = articles,
-      );
+      try {
+        loadings[category.name] = true;
+        final result = await _getArticles(category.url);
+        result.fold(
+          (failure) => errors[category.name] = _failureToMessage(failure),
+          (articles) => this.articles[category.name] = articles,
+        );
+      } finally {
+        loadings[category.name] = false;
+      }
     }
   }
 

@@ -54,6 +54,21 @@ mixin _$NewsStore on _NewsStore, Store {
     });
   }
 
+  final _$loadingsAtom = Atom(name: '_NewsStore.loadings');
+
+  @override
+  ObservableMap<String, bool> get loadings {
+    _$loadingsAtom.reportRead();
+    return super.loadings;
+  }
+
+  @override
+  set loadings(ObservableMap<String, bool> value) {
+    _$loadingsAtom.reportWrite(value, super.loadings, () {
+      super.loadings = value;
+    });
+  }
+
   final _$initializeAsyncAction = AsyncAction('_NewsStore.initialize');
 
   @override
@@ -66,7 +81,8 @@ mixin _$NewsStore on _NewsStore, Store {
     return '''
 categories: ${categories},
 articles: ${articles},
-errors: ${errors}
+errors: ${errors},
+loadings: ${loadings}
     ''';
   }
 }

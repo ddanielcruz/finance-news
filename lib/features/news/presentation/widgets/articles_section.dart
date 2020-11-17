@@ -1,3 +1,4 @@
+import 'package:finance_news/core/widgets/loading.dart';
 import 'package:finance_news/features/news/domain/entities/article.dart';
 import 'package:finance_news/features/news/domain/entities/category.dart';
 import 'package:finance_news/features/news/presentation/store/news_store.dart';
@@ -22,6 +23,7 @@ class _ArticlesSectionState extends State<ArticlesSection> {
   final store = getIt<NewsStore>();
 
   List<Article> get articles => store.articles[widget.category.name] ?? [];
+  bool get isLoading => store.loadings[widget.category.name] ?? false;
 
   @override
   void initState() {
@@ -34,19 +36,21 @@ class _ArticlesSectionState extends State<ArticlesSection> {
     // TODO: Add loading
     // TODO: Handle error
     return Observer(
-      builder: (_) => ListView.separated(
-        key: PageStorageKey(widget.category.name),
-        padding: const EdgeInsets.all(16),
-        separatorBuilder: (ctx, idx) => const SizedBox(height: 16),
-        itemCount: articles.length,
-        itemBuilder: (ctx, idx) {
-          final article = articles[idx];
-          return ArticleCard(
-            key: Key(article.guid),
-            article: article,
-          );
-        },
-      ),
+      builder: (_) => isLoading
+          ? const Loading()
+          : ListView.separated(
+              key: PageStorageKey(widget.category.name),
+              padding: const EdgeInsets.all(16),
+              separatorBuilder: (ctx, idx) => const SizedBox(height: 16),
+              itemCount: articles.length,
+              itemBuilder: (ctx, idx) {
+                final article = articles[idx];
+                return ArticleCard(
+                  key: Key(article.guid),
+                  article: article,
+                );
+              },
+            ),
     );
   }
 }
