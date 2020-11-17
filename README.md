@@ -7,7 +7,7 @@
 
 Finance News is a simple project I developed for a college exam, which should be developed using Flutter. It's a News app using InfoMoney (brazilian journal) RSS feed, but it would work with any RSS feed.
 
-<div align="center">
+<div>
   <img src=".github/news-page.png" height="500"/>
 </div>
 
