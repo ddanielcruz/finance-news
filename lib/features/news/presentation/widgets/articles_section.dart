@@ -35,6 +35,7 @@ class _ArticlesSectionState extends State<ArticlesSection> {
     // TODO: Handle error
     return Observer(
       builder: (_) => ListView.separated(
+        key: PageStorageKey(widget.category.name),
         padding: const EdgeInsets.all(16),
         separatorBuilder: (ctx, idx) => const SizedBox(height: 16),
         itemCount: articles.length,

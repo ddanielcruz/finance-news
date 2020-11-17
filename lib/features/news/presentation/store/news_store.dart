@@ -34,11 +34,13 @@ abstract class _NewsStore with Store {
   }
 
   Future fetch(Category category) async {
-    final result = await _getArticles(category.url);
-    result.fold(
-      (failure) => errors[category.name] = _failureToMessage(failure),
-      (articles) => this.articles[category.name] = articles,
-    );
+    if (!articles.containsKey(category.name)) {
+      final result = await _getArticles(category.url);
+      result.fold(
+        (failure) => errors[category.name] = _failureToMessage(failure),
+        (articles) => this.articles[category.name] = articles,
+      );
+    }
   }
 
   String _failureToMessage(Failure failure) {
