@@ -3,6 +3,7 @@ import 'package:finance_news/core/widgets/loading.dart';
 import 'package:finance_news/features/news/domain/entities/article.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArticleCard extends StatelessWidget {
   static final _format = DateFormat("dd/MM/yyyy às HH:mm");
@@ -25,7 +26,7 @@ class ArticleCard extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: launchArticle,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -70,5 +71,11 @@ class ArticleCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future launchArticle() async {
+    if (await canLaunch(article.link)) {
+      await launch(article.link);
+    }
   }
 }
