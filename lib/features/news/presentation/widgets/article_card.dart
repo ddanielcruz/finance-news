@@ -18,7 +18,7 @@ class ArticleCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Material(
-      elevation: 1,
+      elevation: 2,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(4),
@@ -53,14 +53,13 @@ class ArticleCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       article.title,
-                      style: theme.textTheme.bodyText1
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: theme.textTheme.headline3,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       _format.format(article.publishedAt),
-                      style: theme.textTheme.caption,
+                      style: theme.textTheme.subtitle1,
                     ),
                   ],
                 ),
