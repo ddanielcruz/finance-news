@@ -10,3 +10,7 @@ abstract class Failure extends Equatable {
 class NetworkFailure extends Failure {
   const NetworkFailure();
 }
+
+class ServerFailure extends Failure {
+  const ServerFailure();
+}

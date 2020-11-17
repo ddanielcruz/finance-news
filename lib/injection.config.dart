@@ -10,9 +10,11 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/news/domain/repositories/articles_repository.dart';
 import 'features/news/domain/repositories/categories_repository.dart';
 import 'features/news/data/repositories/categories_repository_impl.dart';
 import 'features/news/data/datasources/category_local_data_source.dart';
+import 'features/news/domain/usecases/get_articles.dart';
 import 'features/news/domain/usecases/get_categories.dart';
 import 'features/news/presentation/store/news_store.dart';
 import 'injection.dart';
@@ -32,6 +34,7 @@ Future<GetIt> $initGetIt(
   gh.lazySingleton<Client>(() => registerModule.client);
   gh.lazySingleton<DataConnectionChecker>(
       () => registerModule.connectionChecker);
+  gh.lazySingleton<GetArticles>(() => GetArticles(get<ArticlesRepository>()));
   final sharedPreferences = await registerModule.prefs;
   gh.lazySingleton<SharedPreferences>(() => sharedPreferences);
   gh.lazySingleton<CategoriesRepository>(
